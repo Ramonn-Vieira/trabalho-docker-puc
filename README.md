@@ -1,3 +1,14 @@
+
+#Desafio: Implementação de Estrutura com Docker Compose
+
+Objetivo: Utilizando o jogo demo disponível em https://github.com/fams/guess_gameLinks to an external site., você deverá implementar uma estrutura com Docker Compose que englobe os seguintes serviços:
+
+Um container para o backend em Python (Flask).
+Um container para o banco de dados Postgres.
+Um container NGINX atuando como proxy reverso e servindo as páginas do frontend React.
+
+
+
 # Guess Game com Docker Compose
 
 Esse projeto roda um joguinho de adivinhação feito com Flask e React, usando o Docker Compose para facilitar tudo. Com ele, você sobe tudo com um único comando!
@@ -62,8 +73,3 @@ O backend usa isso pra acessar o banco:
 postgresql://guess_user:guess_pass@db:5432/guess_db
 ```
 
-(essa URL já está configurada no docker-compose.yml)
-
----
-
-Projeto criado para aprender Docker Compose e testar localmente uma aplicação web com múltiplos serviços. Ideal para estudos!
