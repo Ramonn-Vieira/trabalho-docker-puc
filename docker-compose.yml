@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  backend1:
+    build: ./backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://guess_user:guess_pass@db:5432/guess_db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  backend2:
+    build: ./backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://guess_user:guess_pass@db:5432/guess_db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    restart: always
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: guess_db
+      POSTGRES_USER: guess_user
+      POSTGRES_PASSWORD: guess_pass
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend1
+      - backend2
+      - frontend
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
